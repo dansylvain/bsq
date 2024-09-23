@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 18:00:23 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:20:29 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 char	*get_next_line(int fd);
 void	free_tab(char **tab);
 char	*ft_strdup(const char *s);
-void	solve_map(t_map map);
+void	solve_map(t_map *map);
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(char str);
 int		ft_strlen(const char *str);
@@ -186,7 +186,7 @@ int	read_bsq_maps(int fd, int i, int argc, char **argv)
 			return (0);
 		if (fill_map_tab(argv, &i, &map.map) == 0)
 			return (0);
-		solve_map(map);
+		solve_map(&map);
 		free_tab(map.map);
 		i++;
 	}
