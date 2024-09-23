@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 10:25:46 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:49:49 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,8 @@
 char	*get_next_line(int fd);
 void	*ft_memset(void *s, int c, size_t n);
 char	**ft_split(char *str, char *cs);
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-}
+void	free_tab(char **tab);
+char	*ft_strdup(const char *s);
 
 char	**handle_user_input(int *argc, char ***argv)
 {
@@ -72,25 +64,60 @@ int	define_index(char **tab, int *argc)
 	return (i);
 }
 
-void	read_bsq_maps(int fd, int i, int argc, char **argv)
+int	read_bsq_maps(int fd, int i, int argc, char **argv)
 {
 	char	*str;
+	int		j;
+	char	**map;
+	int		k;
 
-	str = "";
 	while (i < argc)
 	{
+		
+		// get file size
 		if (open_file(&fd, argv, &i) == 0)
 			continue ;
+		j = 0;
+		str = "";
 		while (str)
 		{
 			str = get_next_line(fd);
+			j++;
 			if (str)
 				printf("%s", str);
 			free(str);
 		}
-		printf("\n");
+		printf("\nfile size = %i\n", j);
 		close (fd);
+
+		// malloc map tab
+		map = NULL;
+		map = (char **)malloc(sizeof(char *) * (j - 1));
+		if (map == NULL)
+			return (0);
+		map[j - 2] = NULL;
+		
+		//fill tab
+		if (open_file(&fd, argv, &i) == 0)
+			continue ;
+		j = 0;
 		str = "";
+		while (str)
+		{
+			str = get_next_line(fd);
+			
+			if (str && j != 0)
+			{
+				map[j - 1] = ft_strdup(str);
+				printf("%s", str);
+			}
+			free(str);
+			j++;
+		}
+		close (fd);
+		free_tab(map);
 		i++;
+		
 	}
+	return (1);
 }
