@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 22:18:23 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:02:13 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ int	main(int argc, char **argv)
 	char	**tab;
 
 	map.map_size = 0;
+	map.empty = ' ';
+	map.full = ' ';
+	map.map = NULL;
+	map.obstacle = ' ';
+	map.x = 0;
+	map.y = 0;
 	tab = handle_user_input(&argc, &argv);
 	i = define_index(tab, &argc);
 	if (read_bsq_maps(&map, i, argc, argv) == 0)

@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 20:43:29 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 23:22:28 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,14 @@ int	fill_map_tab(char **argv, int *i, char ***map)
 	while (str)
 	{
 		str = get_next_line(fd);
-		if (str && j != 0)
+		if (str && j > 0)
 		{
 			(*map)[j - 1] = ft_strdup(str);
 		}
 		free(str);
 		j++;
 	}
+	(*map)[j - 1] = NULL;
 	close (fd);
 	return (1);
 }
