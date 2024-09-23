@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 13:25:24 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:28:41 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,8 @@ int	get_file_size(char **argv, int *i)
 	{
 		str = get_next_line(fd);
 		j++;
-		// if (str)
-		// 	printf("%s", str);
 		free(str);
 	}
-	// printf("\nfile size = %i\n", j);
 	close (fd);
 	return (j);
 }
@@ -81,7 +78,6 @@ int	fill_map_tab(char **argv, int *i, char ***map)
 		if (str && j != 0)
 		{
 			(*map)[j - 1] = ft_strdup(str);
-			// printf("%s", str);
 		}
 		free(str);
 		j++;

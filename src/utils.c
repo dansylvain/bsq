@@ -6,17 +6,19 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:47:14 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 13:21:40 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:37:13 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 
-int	ft_strlen(const char *str);
+int		ft_strlen(const char *str);
 void	*ft_memset(void *s, int c, size_t n);
 char	**ft_split(char *str, char *cs);
+
 void	free_tab(char **tab)
+
 {
 	int	i;
 

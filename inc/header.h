@@ -1,25 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve_bsq.c                                        :+:      :+:    :+:   */
+/*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/23 13:23:21 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 13:37:19 by dsylvain         ###   ########.fr       */
+/*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
+/*   Updated: 2024/09/23 13:36:31 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-void	solve_map(char **map)
+typedef struct map_data
 {
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		printf("%s", map[i++]);
-	}
-	printf("\n");
-}
+	int		map_size;
+	char	empty;
+	char	obstacle;
+	char	full;
+}	t_map_data;
