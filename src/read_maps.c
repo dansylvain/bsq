@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 16:58:48 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:03:18 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,12 @@ void	extract_map_data(char *str, t_map *map)
 	int	i;
 
 	map->map_size = ft_atoi(str);
-	// printf("parse moi ca: %i\n", ft_atoi(str));
 	i = 0;
 	while (ft_isdigit(str[i]))
 		str[i++];
 	map->empty = *&str[i++];
 	map->obstacle = *&str[i++];
 	map->full = *&str[i++];
-	// printf("reste de la string: %c\n", *&str[i++]);
-	// printf("reste de la string: %c\n", *&str[i++]);
-	// printf("reste de la string: %c\n", *&str[i]);
 }
 
 int	get_file_size(char **argv, int *i, t_map *map)
@@ -65,7 +61,7 @@ int	get_file_size(char **argv, int *i, t_map *map)
 	while (str)
 	{
 		str = get_next_line(fd);
-		if(j == 0)
+		if (j == 0)
 			extract_map_data(str, map);
 		j++;
 		free(str);
@@ -111,7 +107,7 @@ int	fill_map_tab(char **argv, int *i, char ***map)
 int	get_len(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i] && str[i] != '\n')
 		i++;
@@ -139,7 +135,7 @@ int	get_file_len(char **argv, int *i, t_map *map)
 		if (str && j > 0 && get_len(str) != len)
 			return (-1);
 		j++;
-		if(str)
+		if (str)
 			free(str);
 	}
 	printf("len: %i, %i\n", len, j);
