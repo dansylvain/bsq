@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 14:09:47 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:58:48 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,19 +108,62 @@ int	fill_map_tab(char **argv, int *i, char ***map)
 	return (1);
 }
 
+int	get_len(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
+}
+
+int	get_file_len(char **argv, int *i, t_map *map)
+{
+	int		fd;
+	int		j;
+	char	*str;
+	int		len;
+
+	if (open_file(&fd, argv, i) == 0)
+		return (-1);
+	j = 0;
+	str = "";
+	while (str)
+	{
+		str = get_next_line(fd);
+		if (j == 1 && !str)
+			return (-1);
+		if (j == 1)
+			len = get_len(str);
+		if (str && j > 0 && get_len(str) != len)
+			return (-1);
+		j++;
+		if(str)
+			free(str);
+	}
+	printf("len: %i, %i\n", len, j);
+	close (fd);
+	return (j);
+}
+
 int	read_bsq_maps(int fd, int i, int argc, char **argv)
 {
 	char	*str;
-	int		j;
+	int		size;
+	int		len;
 	t_map	map;
 	int		k;
 
 	while (i < argc)
 	{
-		j = get_file_size(argv, &i, &map);
-		if (j == -1)
+		size = get_file_size(argv, &i, &map);
+		if (size == -1)
 			continue ;
-		if (alloc_map_tab(&map.map, j) == 0)
+		len = get_file_len(argv, &i, &map);
+		if (len == -1)
+			continue ;
+		if (alloc_map_tab(&map.map, size) == 0)
 			return (0);
 		if (fill_map_tab(argv, &i, &map.map) == 0)
 			return (0);
