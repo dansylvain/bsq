@@ -10,7 +10,17 @@ OBJS_DIR = objs
 SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/gnl.c \
 		$(SRC_DIR)/gnl_utils.c \
-		
+		$(LIB)/ft_memset.c \
+		$(LIB)/ft_split.c \
+		$(LIB)/ft_calloc.c \
+		$(LIB)/ft_strdup.c \
+		$(LIB)/ft_strlen.c \
+		$(LIB)/ft_isdigit.c \
+		$(LIB)/ft_strcmp.c \
+		$(LIB)/ft_strcpy.c \
+		$(LIB)/ft_atoi.c \
+		$(LIB)/ft_strlcat.c \
+		$(LIB)/ft_itoa.c 	
 
 OBJS = $(SRC:%.c=$(OBJS_DIR)/%.o)
 
