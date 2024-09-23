@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 11:49:49 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:04:11 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ int	define_index(char **tab, int *argc)
 	return (i);
 }
 
+int	get_file_size()
+{
+	
+}
+
 int	read_bsq_maps(int fd, int i, int argc, char **argv)
 {
 	char	*str;
@@ -73,7 +78,7 @@ int	read_bsq_maps(int fd, int i, int argc, char **argv)
 
 	while (i < argc)
 	{
-		
+		get_file_size();
 		// get file size
 		if (open_file(&fd, argv, &i) == 0)
 			continue ;
