@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 19:20:29 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 20:01:11 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,19 +125,26 @@ int	get_len(char *str)
 
 int	is_valid_char(char c, t_map *map)
 {
-	return (c == map->empty || c == map->full || c == map->obstacle);
+	return (c == map->empty || c == map->obstacle);
 }
 
 int	check_line(int j[], char *str, int *len, t_map *map)
 {
+	int	i;
+
+	i = 0;
 	if (j[0] == 1 && !str)
 		return (0);
 	if (j[0] == 1)
 		*len = get_len(str);
 	if (*str && j[0] > 0 && get_len(str) != *len)
 		return (0);
-	if (j[0] != 0 && !is_valid_char(str[j[1]], map))
-		return (0);
+	while (str[i])
+	{
+		if (j[0] != 0 && str[i] != '\n' && !is_valid_char(str[i], map))
+			return (printf("%c", str[i]), 0);
+		i++;
+	}
 	return (1);
 }
 
@@ -156,7 +163,8 @@ int	get_file_len(char **argv, int *i, t_map *map)
 	while (j[0] < map->map_size)
 	{
 		str = get_next_line(fd);
-		check_line(j, str, &len, map);
+		if (check_line(j, str, &len, map) == 0)
+			return (-1);
 		j[0]++;
 		if (str)
 			free(str);
