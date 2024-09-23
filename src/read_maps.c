@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 17:03:18 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:40:32 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*ft_strdup(const char *s);
 void	solve_map(t_map map);
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(char str);
+int		ft_strlen(const char *str);
+int		get_len(char *str);
 
 int	open_file(int *fd, char **argv, int *i)
 {
@@ -35,17 +37,22 @@ int	open_file(int *fd, char **argv, int *i)
 	return (1);
 }
 
-void	extract_map_data(char *str, t_map *map)
+int	extract_map_data(char *str, t_map *map)
 {
 	int	i;
 
 	map->map_size = ft_atoi(str);
 	i = 0;
+	if (map->map_size == 0)
+		return (0);
 	while (ft_isdigit(str[i]))
 		str[i++];
+	if (get_len(&str[i]) != 3)
+		return (0);
 	map->empty = *&str[i++];
 	map->obstacle = *&str[i++];
 	map->full = *&str[i++];
+	
 }
 
 int	get_file_size(char **argv, int *i, t_map *map)
@@ -62,10 +69,13 @@ int	get_file_size(char **argv, int *i, t_map *map)
 	{
 		str = get_next_line(fd);
 		if (j == 0)
-			extract_map_data(str, map);
+			if (extract_map_data(str, map) == 0)
+				return (free(str), -1);
 		j++;
 		free(str);
 	}
+	if (j != map->map_size + 2)
+		return (-1);
 	close (fd);
 	return (j);
 }
@@ -114,18 +124,25 @@ int	get_len(char *str)
 	return (i);
 }
 
+int	is_valid_char(char c, t_map *map)
+{
+	return (c == map->empty || c == map->full || c == map->obstacle);
+}
+
 int	get_file_len(char **argv, int *i, t_map *map)
 {
 	int		fd;
 	int		j;
 	char	*str;
 	int		len;
+	int		k;
 
 	if (open_file(&fd, argv, i) == 0)
 		return (-1);
 	j = 0;
 	str = "";
-	while (str)
+	k = 0;
+	while (j < map->map_size)
 	{
 		str = get_next_line(fd);
 		if (j == 1 && !str)
@@ -134,11 +151,15 @@ int	get_file_len(char **argv, int *i, t_map *map)
 			len = get_len(str);
 		if (str && j > 0 && get_len(str) != len)
 			return (-1);
+		
+		if (j != 0 && !is_valid_char(str[k], map))
+			return (-1);
+
 		j++;
 		if (str)
 			free(str);
+		k++;
 	}
-	printf("len: %i, %i\n", len, j);
 	close (fd);
 	return (j);
 }
