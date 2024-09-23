@@ -1,0 +1,46 @@
+NAME = bsq
+
+CC = gcc
+CFLAGS = -g -Iinc #-Wall -Wextra -Werror
+
+SRC_DIR = src
+LIB = src/lib
+OBJS_DIR = objs
+
+SRC =	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/gnl.c \
+		$(SRC_DIR)/gnl_utils.c \
+		
+
+OBJS = $(SRC:%.c=$(OBJS_DIR)/%.o)
+
+DESIGN_MARKER = .design_running
+
+INCLUDES = -I incs
+
+all: $(NAME)
+
+$(DESIGN_MARKER):
+	clear
+	@bash src/generateGradient.sh
+	@touch $(DESIGN_MARKER)
+
+$(OBJS_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(NAME): $(DESIGN_MARKER) $(OBJS) 
+	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) 
+	@echo "$(NAME) compiled !"
+
+clean:
+	@rm -rf $(OBJS_DIR)
+	@echo "obj files cleaned."
+
+fclean: clean
+	@rm -f $(NAME) $(DESIGN_MARKER)
+	@echo "all files cleaned."
+
+re: fclean all
+
+.PHONY: all clean fclean re
