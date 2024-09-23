@@ -10,6 +10,7 @@ OBJS_DIR = objs
 SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/gnl.c \
 		$(SRC_DIR)/gnl_utils.c \
+		$(SRC_DIR)/read_maps.c \
 		$(LIB)/ft_memset.c \
 		$(LIB)/ft_split.c \
 		$(LIB)/ft_calloc.c \
