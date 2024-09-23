@@ -6,21 +6,22 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:23:21 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 21:53:05 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:24:05 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "header.h"
 #include <unistd.h>
+
 void	mark_bsq_on_map(t_map *map);
 void	display_bsq(t_map *map);
 
 void	calculate_square_len(t_map *map, int *x, int *y, int *max_len)
 {
 	int	i;
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	k = 1;
 	while (*y + k <= map->map_size && *x + k <= map->map_size)
@@ -39,7 +40,7 @@ void	calculate_square_len(t_map *map, int *x, int *y, int *max_len)
 						map->x = *x;
 						map->y = *y;
 					}
-					return;
+					return ;
 				}
 				j++;
 			}
@@ -55,8 +56,6 @@ void	calculate_square_len(t_map *map, int *x, int *y, int *max_len)
 	}
 }
 
-
-
 void	solve_map(t_map *map)
 {
 	int	i;
@@ -70,7 +69,7 @@ void	solve_map(t_map *map)
 		j = 0;
 		while (map->map[i][j])
 		{
-			calculate_square_len(map, &i, &j, &max_len);	
+			calculate_square_len(map, &i, &j, &max_len);
 			j++;
 		}
 		i++;

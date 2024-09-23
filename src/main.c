@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 21:52:33 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 22:18:23 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	mark_bsq_on_map(t_map *map)
 	int	x;
 	int	y;
 
-	printf("map->y: %i, map->x: %i, map->max_size: %i\n",map->y, map->x, map->map_size);
+	printf ("map->y: %i, map->x: %i, map->max_size: %i\n", map->y,
+		map->x, map->map_size);
 	y = map->y;
 	while (y < map->y + map->map_size)
 	{
@@ -37,8 +38,8 @@ void	mark_bsq_on_map(t_map *map)
 		}
 		y++;
 	}
-	printf("map->y: %i, map->x: %i, map->max_size: %i\n",map->y, map->x, map->map_size);
-
+	printf ("map->y: %i, map->x: %i, map->max_size: %i\n", map->y,
+		map->x, map->map_size);
 }
 
 void	display_bsq(t_map *map)
@@ -59,7 +60,6 @@ void	display_bsq(t_map *map)
 	}
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_map	map;
@@ -72,7 +72,9 @@ int	main(int argc, char **argv)
 	i = define_index(tab, &argc);
 	if (read_bsq_maps(&map, i, argc, argv) == 0)
 		return (error_msg("memory allocation for bsq map failed"), 1);
-	printf("biggest square is at %i, %i (max_len: %i)\n", map.x, map.y, map.map_size);
+	if (map.map_size)
+		printf("biggest square is at %i, %i (max_len: %i)\n",
+			map.x, map.y, map.map_size);
 	if (tab)
 		free_tab(tab);
 	return (0);
