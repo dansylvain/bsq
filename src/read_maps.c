@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 17:40:32 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:00:23 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	extract_map_data(char *str, t_map *map)
 	map->empty = *&str[i++];
 	map->obstacle = *&str[i++];
 	map->full = *&str[i++];
-	
 }
 
 int	get_file_size(char **argv, int *i, t_map *map)
@@ -129,39 +128,42 @@ int	is_valid_char(char c, t_map *map)
 	return (c == map->empty || c == map->full || c == map->obstacle);
 }
 
+int	check_line(int j[], char *str, int *len, t_map *map)
+{
+	if (j[0] == 1 && !str)
+		return (0);
+	if (j[0] == 1)
+		*len = get_len(str);
+	if (*str && j[0] > 0 && get_len(str) != *len)
+		return (0);
+	if (j[0] != 0 && !is_valid_char(str[j[1]], map))
+		return (0);
+	return (1);
+}
+
 int	get_file_len(char **argv, int *i, t_map *map)
 {
 	int		fd;
-	int		j;
+	int		j[2];
 	char	*str;
 	int		len;
-	int		k;
 
 	if (open_file(&fd, argv, i) == 0)
 		return (-1);
-	j = 0;
+	j[0] = 0;
 	str = "";
-	k = 0;
-	while (j < map->map_size)
+	j[1] = 0;
+	while (j[0] < map->map_size)
 	{
 		str = get_next_line(fd);
-		if (j == 1 && !str)
-			return (-1);
-		if (j == 1)
-			len = get_len(str);
-		if (str && j > 0 && get_len(str) != len)
-			return (-1);
-		
-		if (j != 0 && !is_valid_char(str[k], map))
-			return (-1);
-
-		j++;
+		check_line(j, str, &len, map);
+		j[0]++;
 		if (str)
 			free(str);
-		k++;
+		j[1]++;
 	}
 	close (fd);
-	return (j);
+	return (j[0]);
 }
 
 int	read_bsq_maps(int fd, int i, int argc, char **argv)
