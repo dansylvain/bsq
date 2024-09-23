@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 10:56:38 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:19:51 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	fd = 0;
 	tab = handle_user_input(&argc, &argv);
 	i = define_index(tab, &argc);
-	if(read_bsq_maps(fd, i, argc, argv) == 0)
+	if (read_bsq_maps(fd, i, argc, argv) == 0)
 		return (error_msg("memory allocation for bsq map failed"), 1);
 	if (tab)
 		free_tab(tab);

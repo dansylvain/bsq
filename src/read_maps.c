@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:23:41 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/23 12:18:42 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:21:20 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	get_file_size(char **argv, int *i)
 	char	*str;
 
 	if (open_file(&fd, argv, i) == 0)
-		return (-1) ;
+		return (-1);
 	j = 0;
 	str = "";
 	while (str)
@@ -104,13 +104,12 @@ int	fill_map_tab(char **argv, int *i, char ***map)
 	char	*str;
 
 	if (open_file(&fd, argv, i) == 0)
-		return (0) ;
+		return (0);
 	j = 0;
 	str = "";
 	while (str)
 	{
 		str = get_next_line(fd);
-		
 		if (str && j != 0)
 		{
 			(*map)[j - 1] = ft_strdup(str);
@@ -134,15 +133,13 @@ int	read_bsq_maps(int fd, int i, int argc, char **argv)
 	{
 		j = get_file_size(argv, &i);
 		if (j == -1)
-			continue;
-		if(alloc_map_tab(&map, j) == 0)
+			continue ;
+		if (alloc_map_tab(&map, j) == 0)
 			return (0);
-		if(fill_map_tab(argv, &i, &map) == 0)
+		if (fill_map_tab(argv, &i, &map) == 0)
 			return (0);
-					
 		free_tab(map);
 		i++;
-		
 	}
 	return (1);
 }
