@@ -14,6 +14,7 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/utils.c \
 		$(SRC_DIR)/gnl.c \
 		$(SRC_DIR)/gnl_utils.c \
+		$(SRC_DIR)/map_validity_check.c \
 		$(LIB)/ft_memset.c \
 		$(LIB)/ft_split.c \
 		$(LIB)/ft_calloc.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 23:13:18 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 00:24:43 by dansylvain       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	ft_strcpy(char *dst, const char *src);
 char	**ft_split(char *str, char *cs);
 void	error_msg(char *str);
 int		get_bsq_len(char *str);
+int	check_map_validity(t_map *map, int argc, int i);
 
 void	free_tab(char **tab)
 
@@ -66,72 +67,6 @@ void	handle_user_input(int argc, char **argv, t_map *map)
 	}
 	else
 		map->my_argv = argv;
-}
-
-int	check_lines_length(t_map *map)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	str = "";
-	while (str)
-	{
-		str = get_next_line(map->fd);
-		if (str && i > 0)
-		{
-			int toto = ft_strlen(str);
-			if (toto != map->map_size_x + 1)
-				return (-1);
-		}
-		i++;
-		free(str);
-		
-	}
-	return (1);
-}
-
-int	at_least_one_line_one_box(t_map *map)
-{
-	
-}
-
-int	has_line_breaks(t_map *map)
-{
-	
-}
-
-int	has_only_valid_chars(t_map *map)
-{
-	
-}
-
-
-int	check_map_validity(t_map *map, int argc, int i)
-{
-	int	is_valid;
-	int	fd;
-	
-	fd = 0;
-	is_valid = 1;
-	fd = open_file(argc, map, map->my_argv[i - 2]);
-	if (fd == -1)
-	{
-		is_valid = 0;		
-	}
-	if (check_lines_length(map) == -1)
-		is_valid = -1;
-	if (at_least_one_line_one_box(map) == -1)
-		is_valid = -1;
-	if (has_line_breaks(map) == -1)
-		is_valid = -1;
-	if (has_only_valid_chars(map) == -1)
-		is_valid = -1;
-	if (is_valid == -1)
-		error_msg("map error\n");
-	close_file(fd);
-
-	return (is_valid);
 }
 
 int	main(int argc, char **argv)
