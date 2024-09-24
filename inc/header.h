@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 11:21:14 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 12:07:54 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ typedef struct map
 	char	empty;
 	char	obstacle;
 	char	full;
+	char	map[1000][1000];
 }	t_map;
 
 int	ft_atoi(const char *nptr);
 int	ft_isdigit(char str);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif
