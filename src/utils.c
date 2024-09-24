@@ -6,11 +6,13 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:01 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 20:02:36 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:07:17 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	error_msg(char *str);
 
 int	get_bsq_len(char *str)
 {
@@ -52,6 +54,8 @@ void	close_file(int fd)
 int	open_file(int argc, int *fd, char *file_name)
 {
 	*fd = open(file_name, O_RDONLY);
+	if (*fd == -1)
+		error_msg("file error\n");
 	return (*fd);
 }
 
