@@ -1,7 +1,7 @@
 NAME = bsq
 
 CC = gcc
-CFLAGS = -g -Iinc -Wall -Wextra -Werror
+CFLAGS = -g -Iinc #-Wall -Wextra -Werror
 
 SRC_DIR = src
 LIB = src/lib

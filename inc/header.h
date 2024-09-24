@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 18:14:30 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:41:37 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 
 typedef struct map
 {
+	char	**my_argv;
+	int		myargc;
+	int		fd;
 	int		bsq_size;
 	int		bsq_x;
 	int		bsq_y;
