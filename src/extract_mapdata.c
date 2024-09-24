@@ -6,13 +6,18 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 17:04:46 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:06:05 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 int	get_bsq_len(char *str);
+
+void	handle_line()
+{
+	
+}
 
 void	extract_map_data(int fd, t_map *map)
 {
@@ -29,6 +34,7 @@ void	extract_map_data(int fd, t_map *map)
 		str = get_next_line(fd);
 		if (str)
 		{
+			handle_line();
 			if (i == 0)
 			{
 				map->map_size_y = ft_atoi(str);
