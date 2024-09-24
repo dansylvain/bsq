@@ -8,6 +8,10 @@ LIB = src/lib
 OBJS_DIR = objs
 
 SRC =	$(SRC_DIR)/main.c \
+		$(SRC_DIR)/bsq.c \
+		$(SRC_DIR)/extract_mapdata.c \
+		$(SRC_DIR)/display.c \
+		$(SRC_DIR)/utils.c \
 		$(SRC_DIR)/gnl.c \
 		$(SRC_DIR)/gnl_utils.c \
 		$(LIB)/ft_memset.c \
