@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 21:00:26 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:47:55 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,10 @@ int	check_lines_length(t_map *map)
 			int toto = ft_strlen(str);
 			if (toto != map->map_size_x + 1)
 				return (-1);
-			free(str);
 		}
 		i++;
+		free(str);
+		
 	}
 	return (1);
 }
@@ -106,11 +107,20 @@ int	has_only_valid_chars(t_map *map)
 }
 
 
-int	check_map_validity(t_map *map)
+int	check_map_validity(t_map *map, int argc, int i)
 {
 	int	is_valid;
-
+	int	fd;
+	
+	fd = 0;
 	is_valid = 1;
+	printf("map name: %s\n", map->my_argv[i- 2]);
+	fd = open_file(argc, map, map->my_argv[i - 2]);
+	if (fd == -1)
+	{
+		printf("erreur de fichier, sacrebleu: %s\n", strerror(errno));
+		is_valid = 0;		
+	}
 	if (check_lines_length(map) == -1)
 		is_valid = -1;
 	if (at_least_one_line_one_box(map) == -1)
@@ -121,6 +131,8 @@ int	check_map_validity(t_map *map)
 		is_valid = -1;
 	if (is_valid == -1)
 		error_msg("map error\n");
+	close_file(fd);
+
 	return (is_valid);
 }
 
@@ -129,21 +141,24 @@ int	main(int argc, char **argv)
 	t_map	map;
 	int		i;
 	int		fd;
+	int		flag;
 
+	flag = 0;
 	initialize_data(&map);
 	handle_user_input(argc, argv, &map);
 	i = 1;
 	while (i < map.myargc || i < argc)
 	{
-		if (open_file(argc, &map, map.my_argv[i]) == -1)
+		if (open_file(argc, &map, map.my_argv[i++]) == -1)
+		{
+			flag = 1;
 			continue ;
+		}
 		extract_map_data(&map);
 		close_file(map.fd);
 		map.fd = 0;
-		open_file(argc, &map, map.my_argv[i++]);
-		if (check_map_validity(&map) == -1)
+		if (check_map_validity(&map, argc, i + 1) == -1)
 			continue ;
-		close_file(map.fd);
 		find_largest_square(&map);
 		mark_bsq_on_map(&map);
 		display_map(&map, 0);
