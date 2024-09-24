@@ -6,20 +6,12 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 13:38:14 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 14:27:57 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 void	display_map(t_map *map);
-
-int	open_file(char *map_name)
-{
-	int	fd;
-	
-	fd = open(map_name, O_RDONLY);
-	return (fd);
-}
 
 int	get_bsq_len(char *str)
 {
@@ -93,16 +85,16 @@ void	display_map(t_map *map)
 	int	i;
 	int	j;
 	
-	i = 0;
+	i = 6;
 	while (i < map->map_size_y)
 	{
-		j = 0;
+		j = 14;
 		while (j < map->map_size_x)
 		{
 			write (1, &map->map[i][j], 1);
 			j++;
 		}
-		write (1	, "\n", 1);
+		write (1, "\n", 1);
 		i++;
 	}
 		
@@ -115,32 +107,85 @@ void	display_data(t_map *map)
 									map->map_size_y);		
 }
 
-int	main(int argc, char **argv)
+void	close_file(int	fd)
 {
-	t_map map;
-	int	fd;
-	int	i;
-	int	j;
-	char *str;
-
-	// open file
-	if (argc == 2)
-		fd = open_file(argv[1]);
-			if (fd == -1)
-				return (printf("could not open file\n"), 1);
-	
-	initialize_data(&map);
-	// extract map data
-	extract_map_data(fd, &map);
-	display_data(&map);
-	display_map(&map);
-
-
 	if (fd != -1)
 	{
 		close (fd);
 		printf("file closed\n");
 	}
+}
+
+int	open_file(int argc, int *fd, char *file_name)
+{
+	if (argc == 2)
+		*fd = open(file_name, O_RDONLY);
+			if (*fd == -1)
+				return (printf("could not open file\n"), 1);
+}
+
+
+void	find_bsq(t_map *map, int *i, int *j)
+{
+	int	x;
+	int	y;
+	
+	
+	// // write(1, &map->map[*i][*j], 1);
+	// y = 0;
+	// while (*j + y < map->map_size_y)
+	// {
+	// 	x = 0;
+	// 	while (*i + x < map->map_size_x)
+	// 	{
+	// 		write (1, &map->map[x][y], 1);
+	// 		x++;
+	// 	}
+	// 	write (1, "\n", 1);
+	// 	y++;
+	// }
+
+}
+
+
+
+
+
+int	main(int argc, char **argv)
+{
+	t_map map;
+	int	fd;
+	char *str;
+	int	i;
+	int	j;
+
+	initialize_data(&map);	
+	open_file(argc, &fd, argv[1]);
+	extract_map_data(fd, &map);
+	close_file(fd);
+	
+	
+	display_data(&map);
+	display_map(&map);
+	
+	j = 0;
+	while (j < map.map_size_y)
+	{
+		i = 0;
+		while (i < map.map_size_x)
+		{
+			find_bsq(&map, &j, &i);
+			i++;
+		}
+		// write(1, "\n", 1);
+		
+		j++;
+	}
+	// find bsq
+	
+
+	
+	
 	printf("Welcome to the Jungle\n");
 	return (0);
 }
