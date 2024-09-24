@@ -6,11 +6,12 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 12:18:21 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:33:05 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+void	display_map(char str[][1000]);
 
 int	open_file(char *map_name)
 {
@@ -53,6 +54,7 @@ void	extract_map_data(int fd, t_map *map)
 
 	str = "";
 	i = 0;
+	k = 0;
 	while (str)
 	{
 		str = get_next_line(fd);
@@ -69,29 +71,47 @@ void	extract_map_data(int fd, t_map *map)
 				map->obstacle = str[j + 1];
 				map->full = str[j + 2];
 				
-				printf("%c%c%c\n", map->empty, map->obstacle, map->full);
+				printf("%c%c%c : ", map->empty, map->obstacle, map->full);
 			}
 			else
 			{
 				if(map->map_size_x == 0)
 					map->map_size_x = get_bsq_len(str);
 				j = 0;
-				k = 0;
 				while (j < map->map_size_x)
 				{
 					map->map[k][j] = str[j];
-					write(1, &map->map[k][j], 1);
+					// write(1, &map->map[k][j], 1);
 					j++;
 				}
 				k++;
-				printf("\n");
+				// printf("\n");
 			}
 			free(str);
 		}
 		i++;
 	}
 	printf("%i\n", map->map_size_x);
+}
 
+void	display_map(char str[][1000])
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (i < 9)
+	{
+		j = 0;
+		while (j < 27)
+		{
+			write (1, &str[i][j], 1);
+			j++;
+		}
+		write (1	, "\n", 1);
+		i++;
+	}
+		
 }
 
 int	main(int argc, char **argv)
@@ -111,6 +131,8 @@ int	main(int argc, char **argv)
 	initialize_data(&map);
 	// extract map data
 	extract_map_data(fd, &map);
+	display_map(map.map);
+
 
 	if (fd != -1)
 	{
