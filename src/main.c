@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 13:34:49 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:38:14 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,12 @@ void	extract_map_data(int fd, t_map *map)
 			if (i == 0)
 			{
 				map->map_size_y = ft_atoi(str);
-				printf("%i", map->map_size_y);
 				j = 0;
 				while (ft_isdigit(str[j]))
 					j++;
 				map->empty = str[j];
 				map->obstacle = str[j + 1];
 				map->full = str[j + 2];
-				
-				printf("%c%c%c : ", map->empty, map->obstacle, map->full);
 			}
 			else
 			{
@@ -81,17 +78,14 @@ void	extract_map_data(int fd, t_map *map)
 				while (j < map->map_size_x)
 				{
 					map->map[k][j] = str[j];
-					// write(1, &map->map[k][j], 1);
 					j++;
 				}
 				k++;
-				// printf("\n");
 			}
 			free(str);
 		}
 		i++;
 	}
-	printf("%i\n", map->map_size_x);
 }
 
 void	display_map(t_map *map)
@@ -114,6 +108,13 @@ void	display_map(t_map *map)
 		
 }
 
+void	display_data(t_map *map)
+{
+	printf("%c%c%c | %i : %i\n", 	map->empty, map->obstacle,
+									map->full, map->map_size_x,
+									map->map_size_y);		
+}
+
 int	main(int argc, char **argv)
 {
 	t_map map;
@@ -131,6 +132,7 @@ int	main(int argc, char **argv)
 	initialize_data(&map);
 	// extract map data
 	extract_map_data(fd, &map);
+	display_data(&map);
 	display_map(&map);
 
 
