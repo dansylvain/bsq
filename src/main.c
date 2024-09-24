@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 18:49:26 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:26:02 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,16 @@ int	main(int argc, char **argv)
 	handle_user_input(argc, argv, &map);
 	i = 0;
 	while (i < map.myargc || i < argc)
+	{
 		printf("%s\n", map.my_argv[i++]);
-	// open_file(argc, &fd, argv[1]);
-	// extract_map_data(fd, &map);
-	// close_file(fd);
-	// find_largest_square(&map);
-	// mark_bsq_on_map(&map);
-	// display_map(&map, 0);
+		// open_file(argc, &fd, argv[1]);
+		// extract_map_data(fd, &map);
+		// close_file(fd);
+		// find_largest_square(&map);
+		// mark_bsq_on_map(&map);
+		// display_map(&map, 0);
+		i++;
+	}
 	if (argc == 1)
 		free_tab(map.my_argv);
 	return (0);
