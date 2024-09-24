@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 20:36:52 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 23:04:56 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	handle_line(int i[], int *j, t_map **map, char *str)
 		if ((*map)->map_size_x == 0)
 			(*map)->map_size_x = get_bsq_len(str);
 		*j = 0;
-		while (*j < (*map)->map_size_x)
+		while (*j < (*map)->map_size_x - 2)
 		{
 			(*map)->map[i[1]][*j] = str[*j];
 			(*j)++;

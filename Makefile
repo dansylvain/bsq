@@ -48,7 +48,7 @@ $(NAME): $(DESIGN_MARKER) $(OBJS)
 	@echo "$(NAME) compiled !"
 
 clean:
-	@rm -rf $(OBJS_DIR)
+	@rm -rf $(OBJS_DIR) toto
 	@echo "obj files cleaned."
 
 fclean: clean

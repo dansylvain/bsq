@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:01 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 21:29:32 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:54:32 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ void	close_file(int fd)
 
 int	open_file(int argc, t_map *map, char *file_name)
 {
+	printf("et par la: %s\n", file_name);
 	map->fd = open(file_name, O_RDONLY);
 	if (map->fd == -1)
 		error_msg("file error\n");
+	printf("mais pas par  par la: %i\n", map->fd);
 	return (map->fd);
 }
 
