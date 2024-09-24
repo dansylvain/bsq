@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 19:06:09 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:58:54 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	free_all(int argc, t_map *map)
 	if (argc == 1)
 	{
 		free_tab(map->my_argv);
-		free (map);
+		// free (map);
 	}
 }
 
@@ -81,19 +81,22 @@ int	main(int argc, char **argv)
 	i = 1;
 	while (i < map.myargc || i < argc)
 	{
-		if (open_file(argc, &fd, map.my_argv[i]) == -1)
-			return (error_msg("file error"), free_all(argc, &map), 1);
+		if (open_file(argc, &fd, map.my_argv[i++]) == -1)
+		{
+			error_msg("file error\n");
+			continue ;
+			
+		}
+		extract_map_data(fd, &map);
+		close_file(fd);
+		find_largest_square(&map);
+		mark_bsq_on_map(&map);
+		display_map(&map, 0);
 		
-		printf("%s\n", map.my_argv[i]);
-		i++;
+		// printf("%s\n", map.my_argv[i]);
 	}
 
 	
-	extract_map_data(fd, &map);
-	close_file(fd);
-	find_largest_square(&map);
-	mark_bsq_on_map(&map);
-	display_map(&map, 0);
 	if (argc == 1)
 		free_tab(map.my_argv);
 	return (0);
