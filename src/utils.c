@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:01 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 18:25:01 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:05:02 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	close_file(int fd)
 
 int	open_file(int argc, int *fd, char *file_name)
 {
-	if (argc == 2)
-		*fd = open(file_name, O_RDONLY);
+	*fd = open(file_name, O_RDONLY);
+	printf("%i\n", *fd);
 	return (*fd);
 }
 

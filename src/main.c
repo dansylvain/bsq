@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 18:49:26 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 19:06:09 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,30 @@ int		open_file(int argc, int *fd, char *file_name);
 void	close_file(int fd);
 size_t	ft_strcpy(char *dst, const char *src);
 char	**ft_split(char *str, char *cs);
+void	error_msg(char *str);
 
 void	free_tab(char **tab)
+
 {
 	int	i;
 
 	i = 0;
 	while (tab[i])
-		free(tab[i++]);
-	free (tab);
+	{
+		free(tab[i]);
+		tab[i++] = NULL;
+	}
+	free(tab);
+	tab = NULL;
+}
+
+void	free_all(int argc, t_map *map)
+{
+	if (argc == 1)
+	{
+		free_tab(map->my_argv);
+		free (map);
+	}
 }
 
 void	handle_user_input(int argc, char **argv, t_map *map)
@@ -63,15 +78,22 @@ int	main(int argc, char **argv)
 
 	initialize_data(&map);
 	handle_user_input(argc, argv, &map);
-	i = 0;
+	i = 1;
 	while (i < map.myargc || i < argc)
-		printf("%s\n", map.my_argv[i++]);
-	// open_file(argc, &fd, argv[1]);
-	// extract_map_data(fd, &map);
-	// close_file(fd);
-	// find_largest_square(&map);
-	// mark_bsq_on_map(&map);
-	// display_map(&map, 0);
+	{
+		if (open_file(argc, &fd, map.my_argv[i]) == -1)
+			return (error_msg("file error"), free_all(argc, &map), 1);
+		
+		printf("%s\n", map.my_argv[i]);
+		i++;
+	}
+
+	
+	extract_map_data(fd, &map);
+	close_file(fd);
+	find_largest_square(&map);
+	mark_bsq_on_map(&map);
+	display_map(&map, 0);
 	if (argc == 1)
 		free_tab(map.my_argv);
 	return (0);
