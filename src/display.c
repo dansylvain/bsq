@@ -6,11 +6,16 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:01:31 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 17:01:41 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:57:23 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	ft_putstr(char str[])
+{
+	write(1, &str, ft_strlen(str));
+}
 
 void	display_map(t_map *map, int x, int y)
 {
@@ -20,12 +25,7 @@ void	display_map(t_map *map, int x, int y)
 	i = y;
 	while (i < map->map_size_y)
 	{
-		j = x;
-		while (j < map->map_size_x)
-		{
-			write (1, &map->map[i][j], 1);
-			j++;
-		}
+		write(1, &map->map[i], ft_strlen(map->map[i]));
 		write (1, "\n", 1);
 		i++;
 	}
