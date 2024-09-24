@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 17:09:58 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:14:30 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct map
 	char	full;
 	char	map[2000][2000];
 }	t_map;
+
+void	ft_putstr(char str[]);
 
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(char str);

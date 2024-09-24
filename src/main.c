@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 17:04:23 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:17:15 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,8 @@ int	main(int argc, char **argv)
 	open_file(argc, &fd, argv[1]);
 	extract_map_data(fd, &map);
 	close_file(fd);
-	display_data(&map);
 	find_largest_square(&map);
 	mark_bsq_on_map(&map);
 	display_map(&map, 0, 0);
-	printf("Biggest square found at x: %d, y: %d with size: %d\n",
-		map.bsq_x, map.bsq_y, map.bsq_size);
-	printf("Welcome to the Jungle\n");
 	return (0);
 }

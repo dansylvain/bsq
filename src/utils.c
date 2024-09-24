@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:01 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 17:36:17 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:18:23 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	close_file(int fd)
 	if (fd != -1)
 	{
 		close (fd);
-		printf("file closed\n");
 	}
 }
 
@@ -50,5 +49,10 @@ int	open_file(int argc, int *fd, char *file_name)
 	if (argc == 2)
 		*fd = open(file_name, O_RDONLY);
 	if (*fd == -1)
-		return (printf("could not open file\n"), 1);
+		return (("could not open file\n"), 1);
+}
+
+void	error_msg(char *str)
+{
+	write (2, &str, ft_strlen(str));
 }

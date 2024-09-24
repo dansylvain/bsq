@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:01:31 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 17:57:23 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:17:06 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	display_map(t_map *map, int x, int y)
 	write (1, "\n", 1);
 }
 
-void	display_data(t_map *map)
-{
-	printf("%c%c%c | %i : %i\n", map->empty, map->obstacle,
-		map->full, map->map_size_x, map->map_size_y);
-}
+// void	display_data(t_map *map)
+// {
+// 	printf("%c%c%c | %i : %i\n", map->empty, map->obstacle,
+// 		map->full, map->map_size_x, map->map_size_y);
+// }
