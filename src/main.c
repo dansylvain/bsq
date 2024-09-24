@@ -6,12 +6,12 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 13:33:05 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:34:49 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-void	display_map(char str[][1000]);
+void	display_map(t_map *map);
 
 int	open_file(char *map_name)
 {
@@ -94,18 +94,18 @@ void	extract_map_data(int fd, t_map *map)
 	printf("%i\n", map->map_size_x);
 }
 
-void	display_map(char str[][1000])
+void	display_map(t_map *map)
 {
 	int	i;
 	int	j;
 	
 	i = 0;
-	while (i < 9)
+	while (i < map->map_size_y)
 	{
 		j = 0;
-		while (j < 27)
+		while (j < map->map_size_x)
 		{
-			write (1, &str[i][j], 1);
+			write (1, &map->map[i][j], 1);
 			j++;
 		}
 		write (1	, "\n", 1);
@@ -131,7 +131,7 @@ int	main(int argc, char **argv)
 	initialize_data(&map);
 	// extract map data
 	extract_map_data(fd, &map);
-	display_map(map.map);
+	display_map(&map);
 
 
 	if (fd != -1)
