@@ -6,11 +6,12 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 15:53:19 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:03:19 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
 void	display_map(t_map *map, int x, int y);
 
 int	get_bsq_len(char *str)
@@ -26,7 +27,7 @@ int	get_bsq_len(char *str)
 void	initialize_data(t_map *map)
 {
 	int	i;
-	
+
 	map->map_size_y = 0;
 	map->map_size_x = 0;
 	map->empty = 0;
@@ -50,7 +51,7 @@ void	extract_map_data(int fd, t_map *map)
 	while (str)
 	{
 		str = get_next_line(fd);
-		if(str)
+		if (str)
 		{
 			if (i == 0)
 			{
@@ -64,7 +65,7 @@ void	extract_map_data(int fd, t_map *map)
 			}
 			else
 			{
-				if(map->map_size_x == 0)
+				if (map->map_size_x == 0)
 					map->map_size_x = get_bsq_len(str);
 				j = 0;
 				while (j < map->map_size_x)
@@ -84,7 +85,7 @@ void	display_map(t_map *map, int x, int y)
 {
 	int	i;
 	int	j;
-	
+
 	i = y;
 	while (i < map->map_size_y)
 	{
@@ -98,17 +99,15 @@ void	display_map(t_map *map, int x, int y)
 		i++;
 	}
 	write (1, "\n", 1);
-		
 }
 
 void	display_data(t_map *map)
 {
-	printf("%c%c%c | %i : %i\n", 	map->empty, map->obstacle,
-									map->full, map->map_size_x,
-									map->map_size_y);		
+	printf("%c%c%c | %i : %i\n", map->empty, map->obstacle,
+		map->full, map->map_size_x, map->map_size_y);
 }
 
-void	close_file(int	fd)
+void	close_file(int fd)
 {
 	if (fd != -1)
 	{
@@ -121,10 +120,9 @@ int	open_file(int argc, int *fd, char *file_name)
 {
 	if (argc == 2)
 		*fd = open(file_name, O_RDONLY);
-			if (*fd == -1)
-				return (printf("could not open file\n"), 1);
+	if (*fd == -1)
+		return (printf("could not open file\n"), 1);
 }
-
 
 int	find_bsq(t_map *map, int x, int y, int size)
 {
@@ -132,8 +130,7 @@ int	find_bsq(t_map *map, int x, int y, int size)
 	int	j;
 
 	if (x + size > map->map_size_x || y + size > map->map_size_y)
-		return size - 1;
-
+		return (size - 1);
 	i = y;
 	while (i < y + size)
 	{
@@ -141,28 +138,28 @@ int	find_bsq(t_map *map, int x, int y, int size)
 		while (j < x + size)
 		{
 			if (map->map[i][j] == map->obstacle)
-				return size - 1;
+				return (size - 1);
 			j++;
 		}
 		i++;
 	}
-	return find_bsq(map, x, y, size + 1);
+	return (find_bsq(map, x, y, size + 1));
 }
 
-	
-void find_largest_square(t_map *map)
+void	find_largest_square(t_map *map)
 {
-	map->bsq_size = 0;
-	int y;
-	int x;
+	int	y;
+	int	x;
+	int	size;
 
+	map->bsq_size = 0;
 	y = 0;
 	while (y < map->map_size_y)
 	{
 		x = 0;
 		while (x < map->map_size_x)
 		{
-			int size = find_bsq(map, x, y, 1);
+			size = find_bsq(map, x, y, 1);
 			if (size > map->bsq_size)
 			{
 				map->bsq_size = size;
@@ -174,7 +171,6 @@ void find_largest_square(t_map *map)
 		y++;
 	}
 }
-
 
 void	mark_bsq_on_map(t_map *map)
 {
@@ -192,64 +188,26 @@ void	mark_bsq_on_map(t_map *map)
 		}
 		y++;
 	}
-
 }
-
-
 
 int	main(int argc, char **argv)
 {
-	t_map map;
-	int	fd;
-	char *str;
-	int	i;
-	int	j;
+	t_map	map;
+	int		fd;
+	char	*str;
+	int		i;
+	int		j;
 
-	initialize_data(&map);	
+	initialize_data(&map);
 	open_file(argc, &fd, argv[1]);
 	extract_map_data(fd, &map);
 	close_file(fd);
-	
-	
 	display_data(&map);
-	
 	find_largest_square(&map);
 	mark_bsq_on_map(&map);
 	display_map(&map, 0, 0);
 	printf("Biggest square found at x: %d, y: %d with size: %d\n",
-	map.bsq_x, map.bsq_y, map.bsq_size);
-	
-	
-	// display_map(&map, 0, 0);
-	// int best_x = 0;
-	// int best_y = 0;
-	// int best_size = 0;
-	// int biggest_square_size;
-	
-	
-	// j = 0;
-	// while (j < map.map_size_y)
-	// {
-	// 	i = 0;
-	// 	while (i < map.map_size_x)
-	// 	{
-	// 		// display_map(&map, i, j);
-	// 		biggest_square_size = find_bsq(&map, 0, 0, 1, &best_x, &best_y, &best_size); // Appelle la fonction avec une taille initiale de 1
-
-	// 		i++;
-	// 	}
-	// 	printf("Biggest square size: %d\n", biggest_square_size);
-	// 	printf("Biggest square found at x: %d, y: %d with size: %d\n", best_x, best_y, best_size);
-
-	// 	write(1, "\n", 1);
-		
-	// 	j++;
-	// }
-	// find bsq
-	
-
-	
-	
+		map.bsq_x, map.bsq_y, map.bsq_size);
 	printf("Welcome to the Jungle\n");
 	return (0);
 }
