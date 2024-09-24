@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 18:12:31 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 20:36:52 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	handle_line(int i[], int *j, t_map **map, char *str)
 	}
 }
 
-void	extract_map_data(int fd, t_map *map)
+void	extract_map_data(t_map *map)
 {
 	char	*str;
 	int		i[2];
@@ -51,7 +51,7 @@ void	extract_map_data(int fd, t_map *map)
 	i[1] = 0;
 	while (str)
 	{
-		str = get_next_line(fd);
+		str = get_next_line(map->fd);
 		if (str)
 		{
 			handle_line(i, &j, &map, str);

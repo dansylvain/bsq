@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 20:18:18 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 21:00:26 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 void	display_map(t_map *map, int y);
 void	find_largest_square(t_map *map);
 void	mark_bsq_on_map(t_map *map);
-void	extract_map_data(int fd, t_map *map);
+void	extract_map_data(t_map *map);
 void	display_data(t_map *map);
 void	initialize_data(t_map *map);
-int		open_file(int argc, int *fd, char *file_name);
+int		open_file(int argc, t_map *map, char *file_name);
 void	close_file(int fd);
 size_t	ft_strcpy(char *dst, const char *src);
 char	**ft_split(char *str, char *cs);
 void	error_msg(char *str);
+int		get_bsq_len(char *str);
 
 void	free_tab(char **tab)
 
@@ -67,12 +68,58 @@ void	handle_user_input(int argc, char **argv, t_map *map)
 		map->my_argv = argv;
 }
 
+int	check_lines_length(t_map *map)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = "";
+	while (str)
+	{
+		str = get_next_line(map->fd);
+		if (str && i > 0)
+		{
+			int toto = ft_strlen(str);
+			if (toto != map->map_size_x + 1)
+				return (-1);
+			free(str);
+		}
+		i++;
+	}
+	return (1);
+}
+
+int	at_least_one_line_one_box(t_map *map)
+{
+	
+}
+
+int	has_line_breaks(t_map *map)
+{
+	
+}
+
+int	has_only_valid_chars(t_map *map)
+{
+	
+}
+
+
 int	check_map_validity(t_map *map)
 {
 	int	is_valid;
 
 	is_valid = 1;
-	if (!is_valid)
+	if (check_lines_length(map) == -1)
+		is_valid = -1;
+	if (at_least_one_line_one_box(map) == -1)
+		is_valid = -1;
+	if (has_line_breaks(map) == -1)
+		is_valid = -1;
+	if (has_only_valid_chars(map) == -1)
+		is_valid = -1;
+	if (is_valid == -1)
 		error_msg("map error\n");
 	return (is_valid);
 }
@@ -80,20 +127,23 @@ int	check_map_validity(t_map *map)
 int	main(int argc, char **argv)
 {
 	t_map	map;
-	int		fd;
 	int		i;
+	int		fd;
 
 	initialize_data(&map);
 	handle_user_input(argc, argv, &map);
 	i = 1;
 	while (i < map.myargc || i < argc)
 	{
-		if (open_file(argc, &fd, map.my_argv[i++]) == -1)
+		if (open_file(argc, &map, map.my_argv[i]) == -1)
 			continue ;
-		extract_map_data(fd, &map);
+		extract_map_data(&map);
+		close_file(map.fd);
+		map.fd = 0;
+		open_file(argc, &map, map.my_argv[i++]);
 		if (check_map_validity(&map) == -1)
 			continue ;
-		close_file(fd);
+		close_file(map.fd);
 		find_largest_square(&map);
 		mark_bsq_on_map(&map);
 		display_map(&map, 0);
