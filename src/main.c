@@ -6,12 +6,12 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 14:27:57 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 15:53:19 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
-void	display_map(t_map *map);
+void	display_map(t_map *map, int x, int y);
 
 int	get_bsq_len(char *str)
 {
@@ -80,15 +80,15 @@ void	extract_map_data(int fd, t_map *map)
 	}
 }
 
-void	display_map(t_map *map)
+void	display_map(t_map *map, int x, int y)
 {
 	int	i;
 	int	j;
 	
-	i = 6;
+	i = y;
 	while (i < map->map_size_y)
 	{
-		j = 14;
+		j = x;
 		while (j < map->map_size_x)
 		{
 			write (1, &map->map[i][j], 1);
@@ -97,6 +97,7 @@ void	display_map(t_map *map)
 		write (1, "\n", 1);
 		i++;
 	}
+	write (1, "\n", 1);
 		
 }
 
@@ -125,29 +126,74 @@ int	open_file(int argc, int *fd, char *file_name)
 }
 
 
-void	find_bsq(t_map *map, int *i, int *j)
+int	find_bsq(t_map *map, int x, int y, int size)
 {
-	int	x;
-	int	y;
-	
-	
-	// // write(1, &map->map[*i][*j], 1);
-	// y = 0;
-	// while (*j + y < map->map_size_y)
-	// {
-	// 	x = 0;
-	// 	while (*i + x < map->map_size_x)
-	// 	{
-	// 		write (1, &map->map[x][y], 1);
-	// 		x++;
-	// 	}
-	// 	write (1, "\n", 1);
-	// 	y++;
-	// }
+	int	i;
+	int	j;
 
+	if (x + size > map->map_size_x || y + size > map->map_size_y)
+		return size - 1;
+
+	i = y;
+	while (i < y + size)
+	{
+		j = x;
+		while (j < x + size)
+		{
+			if (map->map[i][j] == map->obstacle)
+				return size - 1;
+			j++;
+		}
+		i++;
+	}
+	return find_bsq(map, x, y, size + 1);
+}
+
+	
+void find_largest_square(t_map *map)
+{
+	map->bsq_size = 0;
+	int y;
+	int x;
+
+	y = 0;
+	while (y < map->map_size_y)
+	{
+		x = 0;
+		while (x < map->map_size_x)
+		{
+			int size = find_bsq(map, x, y, 1);
+			if (size > map->bsq_size)
+			{
+				map->bsq_size = size;
+				map->bsq_x = x;
+				map->bsq_y = y;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 
+void	mark_bsq_on_map(t_map *map)
+{
+	int	y;
+	int	x;
+
+	y = map->bsq_y;
+	while (y < map->bsq_size + map->bsq_y)
+	{
+		x = map->bsq_x;
+		while (x < map->bsq_size + map->bsq_x)
+		{
+			map->map[y][x] = map->full;
+			x++;
+		}
+		y++;
+	}
+
+}
 
 
 
@@ -166,21 +212,39 @@ int	main(int argc, char **argv)
 	
 	
 	display_data(&map);
-	display_map(&map);
 	
-	j = 0;
-	while (j < map.map_size_y)
-	{
-		i = 0;
-		while (i < map.map_size_x)
-		{
-			find_bsq(&map, &j, &i);
-			i++;
-		}
-		// write(1, "\n", 1);
+	find_largest_square(&map);
+	mark_bsq_on_map(&map);
+	display_map(&map, 0, 0);
+	printf("Biggest square found at x: %d, y: %d with size: %d\n",
+	map.bsq_x, map.bsq_y, map.bsq_size);
+	
+	
+	// display_map(&map, 0, 0);
+	// int best_x = 0;
+	// int best_y = 0;
+	// int best_size = 0;
+	// int biggest_square_size;
+	
+	
+	// j = 0;
+	// while (j < map.map_size_y)
+	// {
+	// 	i = 0;
+	// 	while (i < map.map_size_x)
+	// 	{
+	// 		// display_map(&map, i, j);
+	// 		biggest_square_size = find_bsq(&map, 0, 0, 1, &best_x, &best_y, &best_size); // Appelle la fonction avec une taille initiale de 1
+
+	// 		i++;
+	// 	}
+	// 	printf("Biggest square size: %d\n", biggest_square_size);
+	// 	printf("Biggest square found at x: %d, y: %d with size: %d\n", best_x, best_y, best_size);
+
+	// 	write(1, "\n", 1);
 		
-		j++;
-	}
+	// 	j++;
+	// }
 	// find bsq
 	
 
