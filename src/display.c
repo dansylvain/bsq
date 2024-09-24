@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:01:31 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 18:17:06 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:23:17 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@ void	ft_putstr(char str[])
 	write(1, &str, ft_strlen(str));
 }
 
-void	display_map(t_map *map, int x, int y)
+void	display_map(t_map *map, int y)
 {
 	int	i;
-	int	j;
 
 	i = y;
 	while (i < map->map_size_y)
