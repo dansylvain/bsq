@@ -6,13 +6,14 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 23:04:56 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:29:29 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
 int	get_bsq_len(char *str);
+size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
 
 void	handle_line(int i[], int *j, t_map **map, char *str)
 {
@@ -22,6 +23,8 @@ void	handle_line(int i[], int *j, t_map **map, char *str)
 		*j = 0;
 		while (ft_isdigit(str[*j]))
 			(*j)++;
+		printf("%s\n", &str[*j]);
+		ft_strlcpy((*map)->charset, &str[*j], 4);
 		(*map)->empty = str[*j];
 		(*map)->obstacle = str[*j + 1];
 		(*map)->full = str[*j + 2];

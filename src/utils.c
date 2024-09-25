@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:01 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/24 23:12:55 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:33:27 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	initialize_data(t_map *map)
 	i = 0;
 	while (i < 1000)
 		ft_memset(map->map[i++], '\0', 1000);
+	ft_memset(map->charset, '\0', 5);
 }
 
 void	close_file(int fd)

@@ -22,7 +22,7 @@ SRC =	$(SRC_DIR)/main.c \
 		$(LIB)/ft_strlen.c \
 		$(LIB)/ft_isdigit.c \
 		$(LIB)/ft_strcmp.c \
-		$(LIB)/ft_strcpy.c \
+		$(LIB)/ft_strlcpy.c \
 		$(LIB)/ft_atoi.c \
 		$(LIB)/ft_strlcat.c \
 		$(LIB)/ft_itoa.c 	

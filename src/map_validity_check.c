@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 08:56:11 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:37:24 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 void	error_msg(char *str);
 int		open_file(int argc, t_map *map, char *file_name);
 void	close_file(int fd);
+int		get_bsq_len(char *str);
 
 int	has_invalid_char(t_map *map, char *str)
 {
@@ -78,6 +79,9 @@ int	check_map_validity(t_map *map, int argc, int i)
 		free(str);
 		j++;
 	}
+	printf("%s : %i\n", map->charset, get_bsq_len(map->charset));
+	if (get_bsq_len(map->charset) != 3)
+		is_valid = -1;
 	if (has_only_valid_chars(map) == -1)
 		is_valid = -1;
 	if (is_valid == -1)

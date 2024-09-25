@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 08:31:02 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:33:37 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	display_data(t_map *map);
 void	initialize_data(t_map *map);
 int		open_file(int argc, t_map *map, char *file_name);
 void	close_file(int fd);
-size_t	ft_strcpy(char *dst, const char *src);
+size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
 char	**ft_split(char *str, char *cs);
 void	error_msg(char *str);
 int		get_bsq_len(char *str);
@@ -57,7 +57,7 @@ void	handle_user_input(int argc, char **argv, t_map *map)
 	ft_memset(buff, '\0', 1000);
 	if (argc == 1)
 	{
-		ft_strcpy(buff, "./bsq  ");
+		ft_strlcpy(buff, "./bsq  ", 7);
 		read(1, &buff[6], 100);
 		map->my_argv = ft_split(buff, " \n	");
 		i = 0;
@@ -80,7 +80,7 @@ int	main(int argc, char **argv)
 	initialize_data(&map);
 	handle_user_input(argc, argv, &map);
 	i = 1;
-	while (i < map.myargc || i < argc) // je suspecte cette condition
+	while (i < map.myargc || i < argc)
 	{
 		if (open_file(argc, &map, map.my_argv[i++]) == -1)
 		{
