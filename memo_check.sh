@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo ""
+echo "════════════════════════════════════════"
+echo "        MEMORY MANAGEMENT CHECK         "
+echo "════════════════════════════════════════"
+echo ""
+
 # Liste des inputs à tester
 inputs=(
 "file_1"
@@ -13,11 +19,12 @@ inputs=(
 # Chemin vers ton programme rush-02
 program="./bsq"
 
+
 # Chemin vers test files folder
 test_folder="bsq_tester/testfiles/"
 
 # Nombre de caractères minimum pour aligner les outputs
-padding=30
+padding=40
 
 # Parcours des inputs
 for input in "${inputs[@]}"; do
