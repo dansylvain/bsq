@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:20:01 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:27:13 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 /**========================================================================
  *                           main
  * ! remaining bugs:
- * ! - segfault with user input (by no args)
- * ! - bsq marking overflows on the side
+ * ! - bsq marking overflows on the side 
  *========================================================================**/
 int	main(int argc, char **argv)
 {
@@ -42,7 +41,6 @@ int	main(int argc, char **argv)
 	}
 	if (argc == 1)
 		free_tab(map.my_argv);
-	free_all(argc, &map);
 	return (0);
 }
 
