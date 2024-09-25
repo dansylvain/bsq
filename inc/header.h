@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:20:57 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:46:43 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct map
 	char	empty;
 	char	obstacle;
 	char	full;
-	char	map[1000][1000];
+	char	map[2000][2000];
 }	t_map;
 
 void	ft_putstr(char str[]);

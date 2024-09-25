@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:27:13 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:47:00 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	initialize_data(t_map *map)
 	map->bsq_size = 0;
 	map->fd = 0;
 	i = 0;
-	while (i < 1000)
-		ft_memset(map->map[i++], '\0', 1000);
+	while (i < 2000)
+		ft_memset(map->map[i++], '\0', 2000);
 	ft_memset(map->charset, '\0', 5);
 }
 

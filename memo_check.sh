@@ -3,14 +3,22 @@
 # Liste des inputs à tester
 inputs=(
 "file_1"
+"file_1 file_2 toto"
+"toto file_1"
+"toto"
+""
+"wrong_file_charset"
 )
 
 # Chemin vers ton programme rush-02
 program="./bsq"
 
+# Chemin vert test files folder
+test_folder="bsq_tester/testfiles/"
+
 # Parcours des inputs
 for input in "${inputs[@]}"; do
-  echo "Testing with input: $input"
+  echo "Testing with input: $test_folder$input"
 
   # Exécuter valgrind sur le programme avec l'input
   valgrind_output=$(eval valgrind --leak-check=full --track-origins=yes --max-stackframe=4000064 $program "$input" 2>&1)
