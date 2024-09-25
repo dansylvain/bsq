@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:29:36 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:39:40 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "gnl.h"
-#include <errno.h>
-#include <stdio.h>
-#include <string.h>  // Pour strerror()
+# include <errno.h>
+# include <stdio.h>
+# include <string.h>  // Pour strerror()
 
 typedef struct map
 {

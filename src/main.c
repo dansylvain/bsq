@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:33:37 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:40:41 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
 char	**ft_split(char *str, char *cs);
 void	error_msg(char *str);
 int		get_bsq_len(char *str);
-int	check_map_validity(t_map *map, int argc, int i);
+int		check_map_validity(t_map *map, int argc, int i);
 
 void	free_tab(char **tab)
 
@@ -74,19 +74,14 @@ int	main(int argc, char **argv)
 	t_map	map;
 	int		i;
 	int		fd;
-	int		flag;
 
-	flag = 0;
 	initialize_data(&map);
 	handle_user_input(argc, argv, &map);
 	i = 1;
 	while (i < map.myargc || i < argc)
 	{
 		if (open_file(argc, &map, map.my_argv[i++]) == -1)
-		{
-			flag = 1;
 			continue ;
-		}
 		extract_map_data(&map);
 		close_file(map.fd);
 		map.fd = 0;
@@ -96,7 +91,7 @@ int	main(int argc, char **argv)
 		mark_bsq_on_map(&map);
 		display_map(&map, 0);
 	}
-		if (argc == 1)
+	if (argc == 1)
 		free_tab(map.my_argv);
 	free_all(argc, &map);
 	return (0);

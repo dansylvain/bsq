@@ -6,13 +6,13 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:29:29 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:40:57 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int	get_bsq_len(char *str);
+int		get_bsq_len(char *str);
 size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
 
 void	handle_line(int i[], int *j, t_map **map, char *str)
