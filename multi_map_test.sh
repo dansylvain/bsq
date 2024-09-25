@@ -5,6 +5,10 @@ echo "════════════════════════�
 echo "          OUTPUT VALIDITY CHECK         "
 echo "════════════════════════════════════════"
 echo ""
+
+total=0  # Remplace par le nombre réel de tests dans ce script
+passed=0 # Remplace par le nombre réel de tests réussis
+
 perl_script="scripts/my_perl.pl"
 
 # Nombre de maps à générer
@@ -26,7 +30,7 @@ padding=30
 for i in $(seq 1 $num_maps); do
     # Générer un nom de fichier unique pour chaque map
     map_file="${testfiles_dir}script_test_file_${i}"
-
+	((total++))
     # Générer la map avec le script Perl
     perl $perl_script 10 10 4 > "$map_file"
 
@@ -38,8 +42,9 @@ for i in $(seq 1 $num_maps); do
 
     # Comparaison des sorties
     if [ "$output" == "$expected_output" ]; then
+		((passed++))
         # Calculer l'espace nécessaire pour aligner l'icône
-        printf "%-40s" "script_test_file_${i}"
+        printf "%-30s" "script_test_file_${i}"
         echo "✅ no difference found"
     else
         echo "Difference found for script_test_file_${i}"
@@ -50,3 +55,12 @@ for i in $(seq 1 $num_maps); do
     fi
 
 done
+
+echo ""
+echo "$passed / $total"
+
+if [ $passed -eq $total ]; then
+    exit 0
+else
+    exit 1
+fi

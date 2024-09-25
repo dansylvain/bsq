@@ -6,6 +6,9 @@ echo "        MEMORY MANAGEMENT CHECK         "
 echo "════════════════════════════════════════"
 echo ""
 
+total=0  # Remplace par le nombre réel de tests dans ce script
+passed=0 # Remplace par le nombre réel de tests réussis
+
 # Liste des inputs à tester
 inputs=(
 "file_1"
@@ -24,14 +27,14 @@ program="./bsq"
 test_folder="bsq_tester/testfiles/"
 
 # Nombre de caractères minimum pour aligner les outputs
-padding=40
+padding=30
 
 # Parcours des inputs
 for input in "${inputs[@]}"; do
   # Calculer le nombre de caractères restants pour l'alignement
   input_length=${#input}
   spaces=$((padding - input_length))
-
+  ((total++))
   # Si l'input est plus long que le padding, ne pas réduire les espaces
   if [ $spaces -lt 1 ]; then
     spaces=1
@@ -50,7 +53,17 @@ for input in "${inputs[@]}"; do
   else
     # Ajouter "✅ no leaks, no error" sur la même ligne, aligné
     echo "✅ no leaks, no error"
+	((passed++))
   fi
 
 #   echo "----------------------------------------"
 done
+
+echo ""
+echo "$passed / $total"
+
+if [ $passed -eq $total ]; then
+    exit 0
+else
+    exit 1
+fi

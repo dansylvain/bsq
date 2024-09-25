@@ -6,6 +6,9 @@ echo "          PARSING CONTROL TEST          "
 echo "════════════════════════════════════════"
 echo ""
 
+total=0  # Remplace par le nombre réel de tests dans ce script
+passed=0 # Remplace par le nombre réel de tests réussis
+
 # Chemin vers test files folder
 test_folder="bsq_tester/testfiles/"
 
@@ -22,7 +25,7 @@ inputs=(
 program="./bsq"
 
 # Longueur minimale pour l'alignement
-padding=40
+padding=30
 
 # Icônes pour succès ou échec
 icon_success="✅"
@@ -31,22 +34,33 @@ icon_error="❌"
 # Parcours des inputs
 for input in "${inputs[@]}"; do
     # Exécuter rush-02 avec l'input
-    echo -n " ⚠️   "
+    # echo -n " ⚠️"
     output=$($program "$test_folder$input")
-
+	((total++))
     # Afficher l'input testé avec un alignement
 	printf "%-${padding}s" "$input"
 
     # Vérifier si l'output contient une nouvelle ligne (erreur possible)
     if [[ "$output" == *$'\n'* ]]; then
         # Si l'output contient une nouvelle ligne, c'est potentiellement une erreur
-        echo "$icon_error error"
-        echo "$output"
+		echo "$icon_error error"
+		echo "$output"
     else
         # Si l'output tient sur une seule ligne, tout va bien
-        echo "$icon_success passed"
-        echo "$output"
+		echo "$icon_success passed"
+		echo "$output"
+		((passed++))
     fi
 
     # echo "----------------------------------------"
 done
+
+echo ""
+echo "$passed / $total"
+echo ""
+
+if [ $passed -eq $total ]; then
+    exit 0
+else
+    exit 1
+fi
