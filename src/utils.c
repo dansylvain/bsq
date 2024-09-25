@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 17:03:01 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:26:49 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:09:49 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,17 @@ int	open_file(int argc, t_map *map, char *file_name)
 {
 	map->fd = open(file_name, O_RDONLY);
 	if (map->fd == -1)
-		error_msg("file error\n");
+		error_msg("file error");
 	return (map->fd);
 }
 
 /**========================================================================
  *                           error_msg
  *========================================================================**/
-void	error_msg(char *str)
+void	error_msg(char str[])
 {
 	write (2, str, ft_strlen(str));
+	write (2, "\n", 1);
 }
 
 /**========================================================================

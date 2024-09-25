@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 13:20:58 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:27:50 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**========================================================================
  *                           main
  * ! remaining bugs:
- * ! - bsq marking overflows on the side 
+ * ! - sortie d'erreur: extra space at the beggining 
  *========================================================================**/
 int	main(int argc, char **argv)
 {

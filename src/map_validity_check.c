@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:20:37 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:26:52 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,14 @@ int	check_map_validity(t_map *map, int argc, int i)
 	is_valid = 1;
 	fd = open_file(argc, map, map->my_argv[i - 2]);
 	if (fd == -1)
-	{
 		is_valid = 0;
-	}
-	is_valid = 1;
 	if (check_str(map) == -1)
 		is_valid = -1;
 	if (get_bsq_len(map->charset) != 3)
 		is_valid = -1;
-	if (is_valid == -1)
-		error_msg("map error\n");
 	close_file(fd);
+	if (is_valid == -1)
+		error_msg("map error");
 	return (is_valid);
 }
 
@@ -47,7 +44,6 @@ int	has_invalid_char(t_map *map, char *str)
 	{
 		if (*str != map->empty && *str != map->obstacle && *str != '\n')
 		{
-			printf("%c", *str);
 			return (-1);
 		}
 		str++;
@@ -67,6 +63,7 @@ int	check_str(t_map *map)
 
 	j = 0;
 	str = "";
+	is_valid = 1;
 	while (str)
 	{
 		str = get_next_line(map->fd);
@@ -83,5 +80,5 @@ int	check_str(t_map *map)
 		free(str);
 		j++;
 	}
-	return (1);
+	return (is_valid);
 }
