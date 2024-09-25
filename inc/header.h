@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:08:59 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:20:57 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "gnl.h"
 # include <errno.h>
 # include <stdio.h>
-# include <string.h>  // Pour strerror()
+# include <string.h>
 
 typedef struct map
 {
@@ -40,16 +40,10 @@ typedef struct map
 }	t_map;
 
 void	ft_putstr(char str[]);
-
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(char str);
 void	*ft_memset(void *s, int c, size_t n);
 void	error_msg(char *str);
-int		get_bsq_len(char *str);
-size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
-void	error_msg(char *str);
-int		open_file(int argc, t_map *map, char *file_name);
-void	close_file(int fd);
 int		get_bsq_len(char *str);
 void	display_map(t_map *map, int y);
 void	find_largest_square(t_map *map);
@@ -61,5 +55,10 @@ void	close_file(int fd);
 size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
 char	**ft_split(char *str, char *cs);
 int		check_map_validity(t_map *map, int argc, int i);
+void	handle_line(int i[], int *j, t_map **map, char *str);
+void	handle_user_input(int argc, char **argv, t_map *map);
+void	free_tab(char **tab);
+void	free_all(int argc, t_map *map);
+int		check_str(t_map *map);
 
 #endif

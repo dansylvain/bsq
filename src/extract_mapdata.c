@@ -6,11 +6,35 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:11:51 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:15:18 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+/**========================================================================
+ *                           extract_map_data
+ *========================================================================**/
+void	extract_map_data(t_map *map)
+{
+	char	*str;
+	int		i[2];
+	int		j;
+
+	str = "";
+	i[0] = 0;
+	i[1] = 0;
+	while (str)
+	{
+		str = get_next_line(map->fd);
+		if (str)
+		{
+			handle_line(i, &j, &map, str);
+			free(str);
+		}
+		i[0]++;
+	}
+}
 
 /**========================================================================
  *                           handle_line
@@ -43,25 +67,14 @@ void	handle_line(int i[], int *j, t_map **map, char *str)
 }
 
 /**========================================================================
- *                           extract_map_data
+ *                           get_bsq_len
  *========================================================================**/
-void	extract_map_data(t_map *map)
+int	get_bsq_len(char *str)
 {
-	char	*str;
-	int		i[2];
-	int		j;
+	int	i;
 
-	str = "";
-	i[0] = 0;
-	i[1] = 0;
-	while (str)
-	{
-		str = get_next_line(map->fd);
-		if (str)
-		{
-			handle_line(i, &j, &map, str);
-			free(str);
-		}
-		i[0]++;
-	}
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	return (i);
 }

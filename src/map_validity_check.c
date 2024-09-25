@@ -6,11 +6,37 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 10:11:28 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:20:37 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+/**========================================================================
+ *                           check_map_validity
+ *========================================================================**/
+int	check_map_validity(t_map *map, int argc, int i)
+{
+	int		is_valid;
+	int		fd;
+
+	fd = 0;
+	is_valid = 1;
+	fd = open_file(argc, map, map->my_argv[i - 2]);
+	if (fd == -1)
+	{
+		is_valid = 0;
+	}
+	is_valid = 1;
+	if (check_str(map) == -1)
+		is_valid = -1;
+	if (get_bsq_len(map->charset) != 3)
+		is_valid = -1;
+	if (is_valid == -1)
+		error_msg("map error\n");
+	close_file(fd);
+	return (is_valid);
+}
 
 /**========================================================================
  *                           has_invalid_char
@@ -58,30 +84,4 @@ int	check_str(t_map *map)
 		j++;
 	}
 	return (1);
-}
-
-/**========================================================================
- *                           check_map_validity
- *========================================================================**/
-int	check_map_validity(t_map *map, int argc, int i)
-{
-	int		is_valid;
-	int		fd;
-
-	fd = 0;
-	is_valid = 1;
-	fd = open_file(argc, map, map->my_argv[i - 2]);
-	if (fd == -1)
-	{
-		is_valid = 0;
-	}
-	is_valid = 1;
-	if (check_str(map) == -1)
-		is_valid = -1;
-	if (get_bsq_len(map->charset) != 3)
-		is_valid = -1;
-	if (is_valid == -1)
-		error_msg("map error\n");
-	close_file(fd);
-	return (is_valid);
 }
