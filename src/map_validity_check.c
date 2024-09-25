@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:42:11 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:46:30 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,28 +38,14 @@ int	check_lines_length(t_map *map)
 	return (is_valid);
 }
 
-int	has_only_valid_chars(t_map *map)
+int	check_str(t_map *map)
 {
-	return (1);
-}
-
-int	check_map_validity(t_map *map, int argc, int i)
-{
-	int		is_valid;
-	int		fd;
-	int		j;
-	int		len;
 	char	*str;
+	int		j;
+	int		is_valid;
+	int		len;
 
-	fd = 0;
-	is_valid = 1;
-	fd = open_file(argc, map, map->my_argv[i - 2]);
-	if (fd == -1)
-	{
-		is_valid = 0;
-	}
 	j = 0;
-	is_valid = 1;
 	str = "";
 	while (str)
 	{
@@ -77,10 +63,25 @@ int	check_map_validity(t_map *map, int argc, int i)
 		free(str);
 		j++;
 	}
-	printf("%s : %i\n", map->charset, get_bsq_len(map->charset));
-	if (get_bsq_len(map->charset) != 3)
+	return (1);
+}
+
+int	check_map_validity(t_map *map, int argc, int i)
+{
+	int		is_valid;
+	int		fd;
+
+	fd = 0;
+	is_valid = 1;
+	fd = open_file(argc, map, map->my_argv[i - 2]);
+	if (fd == -1)
+	{
+		is_valid = 0;
+	}
+	is_valid = 1;
+	if (check_str(map) == -1)
 		is_valid = -1;
-	if (has_only_valid_chars(map) == -1)
+	if (get_bsq_len(map->charset) != 3)
 		is_valid = -1;
 	if (is_valid == -1)
 		error_msg("map error\n");

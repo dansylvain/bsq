@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:40:57 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 09:46:48 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	handle_line(int i[], int *j, t_map **map, char *str)
 		*j = 0;
 		while (ft_isdigit(str[*j]))
 			(*j)++;
-		printf("%s\n", &str[*j]);
 		ft_strlcpy((*map)->charset, &str[*j], 4);
 		(*map)->empty = str[*j];
 		(*map)->obstacle = str[*j + 1];
