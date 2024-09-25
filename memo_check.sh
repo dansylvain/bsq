@@ -13,23 +13,37 @@ inputs=(
 # Chemin vers ton programme rush-02
 program="./bsq"
 
-# Chemin vert test files folder
+# Chemin vers test files folder
 test_folder="bsq_tester/testfiles/"
+
+# Nombre de caractères minimum pour aligner les outputs
+padding=30
 
 # Parcours des inputs
 for input in "${inputs[@]}"; do
-  echo "Testing with input: $test_folder$input"
+  # Calculer le nombre de caractères restants pour l'alignement
+  input_length=${#input}
+  spaces=$((padding - input_length))
+
+  # Si l'input est plus long que le padding, ne pas réduire les espaces
+  if [ $spaces -lt 1 ]; then
+    spaces=1
+  fi
+
+  # Afficher l'input sans retour à la ligne, puis ajouter des espaces pour aligner
+  printf "%s%${spaces}s" "$input" ""
 
   # Exécuter valgrind sur le programme avec l'input
   valgrind_output=$(eval valgrind --leak-check=full --track-origins=yes --max-stackframe=4000064 $program "$input" 2>&1)
 
   # Grep pour trouver les adresses mémoire (0x...)
   if echo "$valgrind_output" | grep -q "0x"; then
-    echo "Memory issues detected for input: $input"
+    echo "Memory issues detected"
     echo "$valgrind_output" | grep "0x"
   else
-    echo "No memory issues for input: $input"
+    # Ajouter "✅ no leaks, no error" sur la même ligne, aligné
+    echo "✅ no leaks, no error"
   fi
 
-  echo "----------------------------------------"
+#   echo "----------------------------------------"
 done
