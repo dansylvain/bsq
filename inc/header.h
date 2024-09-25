@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:34:35 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:39:40 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:08:59 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,22 @@ void	ft_putstr(char str[]);
 int		ft_atoi(const char *nptr);
 int		ft_isdigit(char str);
 void	*ft_memset(void *s, int c, size_t n);
+void	error_msg(char *str);
+int		get_bsq_len(char *str);
+size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
+void	error_msg(char *str);
+int		open_file(int argc, t_map *map, char *file_name);
+void	close_file(int fd);
+int		get_bsq_len(char *str);
+void	display_map(t_map *map, int y);
+void	find_largest_square(t_map *map);
+void	mark_bsq_on_map(t_map *map);
+void	extract_map_data(t_map *map);
+void	initialize_data(t_map *map);
+int		open_file(int argc, t_map *map, char *file_name);
+void	close_file(int fd);
+size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
+char	**ft_split(char *str, char *cs);
+int		check_map_validity(t_map *map, int argc, int i);
 
 #endif

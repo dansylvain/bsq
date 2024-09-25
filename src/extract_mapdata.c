@@ -6,15 +6,15 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 16:55:37 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:46:48 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:11:51 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-int		get_bsq_len(char *str);
-size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
-
+/**========================================================================
+ *                           handle_line
+ *========================================================================**/
 void	handle_line(int i[], int *j, t_map **map, char *str)
 {
 	if (i[0] == 0)
@@ -42,6 +42,9 @@ void	handle_line(int i[], int *j, t_map **map, char *str)
 	}
 }
 
+/**========================================================================
+ *                           extract_map_data
+ *========================================================================**/
 void	extract_map_data(t_map *map)
 {
 	char	*str;

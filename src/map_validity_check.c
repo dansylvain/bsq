@@ -6,17 +6,15 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:46:30 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:11:28 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	error_msg(char *str);
-int		open_file(int argc, t_map *map, char *file_name);
-void	close_file(int fd);
-int		get_bsq_len(char *str);
-
+/**========================================================================
+ *                           has_invalid_char
+ *========================================================================**/
 int	has_invalid_char(t_map *map, char *str)
 {
 	while (*str)
@@ -31,13 +29,9 @@ int	has_invalid_char(t_map *map, char *str)
 	return (1);
 }
 
-int	check_lines_length(t_map *map)
-{
-	int		is_valid;
-
-	return (is_valid);
-}
-
+/**========================================================================
+ *                           check_str
+ *========================================================================**/
 int	check_str(t_map *map)
 {
 	char	*str;
@@ -66,6 +60,9 @@ int	check_str(t_map *map)
 	return (1);
 }
 
+/**========================================================================
+ *                           check_map_validity
+ *========================================================================**/
 int	check_map_validity(t_map *map, int argc, int i)
 {
 	int		is_valid;

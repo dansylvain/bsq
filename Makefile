@@ -12,9 +12,9 @@ SRC =	$(SRC_DIR)/main.c \
 		$(SRC_DIR)/extract_mapdata.c \
 		$(SRC_DIR)/display.c \
 		$(SRC_DIR)/utils.c \
-		$(SRC_DIR)/gnl.c \
-		$(SRC_DIR)/gnl_utils.c \
 		$(SRC_DIR)/map_validity_check.c \
+		$(LIB)/gnl.c \
+		$(LIB)/gnl_utils.c \
 		$(LIB)/ft_memset.c \
 		$(LIB)/ft_split.c \
 		$(LIB)/ft_calloc.c \

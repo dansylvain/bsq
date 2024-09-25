@@ -6,26 +6,15 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 10:04:46 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 09:40:41 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:11:43 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	display_map(t_map *map, int y);
-void	find_largest_square(t_map *map);
-void	mark_bsq_on_map(t_map *map);
-void	extract_map_data(t_map *map);
-void	display_data(t_map *map);
-void	initialize_data(t_map *map);
-int		open_file(int argc, t_map *map, char *file_name);
-void	close_file(int fd);
-size_t	ft_strlcpy(char *dst, const char *src, unsigned int len);
-char	**ft_split(char *str, char *cs);
-void	error_msg(char *str);
-int		get_bsq_len(char *str);
-int		check_map_validity(t_map *map, int argc, int i);
-
+/**========================================================================
+ *                           free_tab
+ *========================================================================**/
 void	free_tab(char **tab)
 
 {
@@ -41,12 +30,18 @@ void	free_tab(char **tab)
 	tab = NULL;
 }
 
+/**========================================================================
+ *                           free_all
+ *========================================================================**/
 void	free_all(int argc, t_map *map)
 {
 	if (argc == 1)
 		free_tab(map->my_argv);
 }
 
+/**========================================================================
+ *                           handle_user_input
+ *========================================================================**/
 void	handle_user_input(int argc, char **argv, t_map *map)
 {
 	char	buff[1000];
@@ -69,6 +64,9 @@ void	handle_user_input(int argc, char **argv, t_map *map)
 		map->my_argv = argv;
 }
 
+/**========================================================================
+ *                           main
+ *========================================================================**/
 int	main(int argc, char **argv)
 {
 	t_map	map;
