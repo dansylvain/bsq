@@ -6,7 +6,7 @@
 /*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 08:41:09 by dsylvain         ###   ########.fr       */
+/*   Updated: 2024/09/25 08:56:11 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,9 @@ int	has_invalid_char(t_map *map, char *str)
 
 int	check_lines_length(t_map *map)
 {
-	int		i;
-	char	*str;
 	int		is_valid;
-	int		len;
 
-	i = 0;
-	is_valid = 1;
-	str = "";
-	while (str)
-	{
-		str = get_next_line(map->fd);
-		if (i == 1 && !str)
-			is_valid = -1;
-		if (str && i > 0)
-		{
-			if (has_invalid_char(map, str) == -1)
-				is_valid = -1;
-			len = ft_strlen(str);
-			if (len != map->map_size_x + 1)
-				is_valid = -1;
-		}
-		free(str);
-		i++;
-	}
+	
 	return (is_valid);
 }
 
@@ -69,6 +48,9 @@ int	check_map_validity(t_map *map, int argc, int i)
 {
 	int	is_valid;
 	int	fd;
+	int		j;
+	int		len;
+	char	*str;
 	
 	fd = 0;
 	is_valid = 1;
@@ -77,8 +59,25 @@ int	check_map_validity(t_map *map, int argc, int i)
 	{
 		is_valid = 0;		
 	}
-	if (check_lines_length(map) == -1)
-		is_valid = -1;
+	j = 0;
+	is_valid = 1;
+	str = "";
+	while (str)
+	{
+		str = get_next_line(map->fd);
+		if (j == 1 && !str)
+			is_valid = -1;
+		if (str && j > 0)
+		{
+			if (has_invalid_char(map, str) == -1)
+				is_valid = -1;
+			len = ft_strlen(str);
+			if (len != map->map_size_x + 1)
+				is_valid = -1;
+		}
+		free(str);
+		j++;
+	}
 	if (has_only_valid_chars(map) == -1)
 		is_valid = -1;
 	if (is_valid == -1)
