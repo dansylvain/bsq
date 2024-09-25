@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validity_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dansylvain <dansylvain@student.42.fr>      +#+  +:+       +#+        */
+/*   By: dsylvain <dsylvain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/24 21:01:42 by dsylvain          #+#    #+#             */
-/*   Updated: 2024/09/25 00:30:34 by dansylvain       ###   ########.fr       */
+/*   Updated: 2024/09/25 08:41:09 by dsylvain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,26 @@ void	error_msg(char *str);
 int		open_file(int argc, t_map *map, char *file_name);
 void	close_file(int fd);
 
+int	has_invalid_char(t_map *map, char *str)
+{
+	while (*str)
+	{
+		if (*str != map->empty && *str != map->obstacle && *str != '\n')
+		{
+			printf("%c", *str);
+			return (-1);
+		}
+		str++;
+	}
+	return (1);
+}
+
 int	check_lines_length(t_map *map)
 {
 	int		i;
 	char	*str;
 	int		is_valid;
+	int		len;
 
 	i = 0;
 	is_valid = 1;
@@ -31,8 +46,10 @@ int	check_lines_length(t_map *map)
 			is_valid = -1;
 		if (str && i > 0)
 		{
-			int toto = ft_strlen(str);
-			if (toto != map->map_size_x + 1)
+			if (has_invalid_char(map, str) == -1)
+				is_valid = -1;
+			len = ft_strlen(str);
+			if (len != map->map_size_x + 1)
 				is_valid = -1;
 		}
 		free(str);
@@ -61,10 +78,6 @@ int	check_map_validity(t_map *map, int argc, int i)
 		is_valid = 0;		
 	}
 	if (check_lines_length(map) == -1)
-		is_valid = -1;
-	if (at_least_one_line_one_box(map) == -1)
-		is_valid = -1;
-	if (has_line_breaks(map) == -1)
 		is_valid = -1;
 	if (has_only_valid_chars(map) == -1)
 		is_valid = -1;
