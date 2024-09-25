@@ -37,7 +37,7 @@ all: $(NAME)
 
 $(DESIGN_MARKER):
 	clear
-	@bash src/generateGradient.sh
+	@bash scripts/generateGradient.sh
 	@touch $(DESIGN_MARKER)
 
 $(OBJS_DIR)/%.o: %.c

@@ -1,14 +1,19 @@
 #!/bin/bash
 
+
+perl_script="scripts/my_perl.pl"
+
+./memo_check.sh
+
 # Liste des commandes Perl pour générer des maps
 perl_commands=(
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
-    "perl perl_script.pl 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
+    "perl $perl_script 10 10 4 > new_map_file_1"
 )
 
 # Chemin vers ton programme rush-02
