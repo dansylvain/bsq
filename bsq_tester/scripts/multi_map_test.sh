@@ -21,7 +21,7 @@ testfiles_dir="bsq_tester/testfiles/"
 program="./bsq"
 
 # Chemin vers l'exécutable étalon
-reference_program="./bsq"  # Change ce chemin selon la localisation de ton exécutable étalon
+reference_program="bsq_tester/scripts/bsq"  # Change ce chemin selon la localisation de ton exécutable étalon
 
 # Nombre de caractères minimum pour aligner les outputs
 padding=30
