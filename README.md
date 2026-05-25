@@ -1,1 +1,59 @@
-# bsq
+# BSQ — Biggest Square
+
+Projet réalisé dans le cadre de la formation **42**. Le programme lit une ou plusieurs cartes et trouve le plus grand carré vide possible, puis l'affiche marqué sur la carte.
+
+## Format d'une carte
+
+La première ligne contient :
+- le nombre de lignes de la carte
+- trois caractères consécutifs : `vide`, `obstacle`, `rempli`
+
+Exemple : `9.ox` → 9 lignes, `.` = vide, `o` = obstacle, `x` = rempli
+
+Les lignes suivantes forment la carte, composée uniquement des caractères `vide` et `obstacle`.
+
+```
+9.ox
+...........................
+..o........................
+...........o....o....o.....
+........o..................
+..o........................
+...............o...........
+...........................
+.....................o.....
+...........................
+```
+
+Résultat :
+```
+...........................
+..o........................
+...........o....o....o.....
+........oxxxxxx............
+..o......xxxxxx............
+.........xxxxxxo...........
+.........xxxxxx............
+.........xxxxxx......o.....
+.........xxxxxx............
+```
+
+## Utilisation
+
+```sh
+# Avec un ou plusieurs fichiers
+./bsq file1 [file2 ...]
+
+# Recompiler
+make re
+```
+
+## Limitations connues (projet non terminé)
+
+- **Mode stdin cassé** : lancer `./bsq` sans argument et saisir un nom de fichier ne fonctionne pas — le programme lit sur `stdout` (fd 1) au lieu de `stdin` (fd 0) (`main.c:84`).
+- **Fichier sans newline final rejeté** : un fichier valide dont la dernière ligne ne se termine pas par `\n` est incorrectement considéré comme invalide (`map_validity_check.c:77`).
+- **`map_size_x` non réinitialisé entre fichiers** : en cas de fichiers de largeurs différentes passés en arguments, la largeur du premier fichier est réutilisée pour les suivants.
+- **`ft_putstr` incorrecte** : la fonction passe `&str` (adresse du pointeur local) à `write` au lieu de `str`. Elle n'est pas appelée actuellement mais produirait une sortie invalide.
+- **`free_all` non implémentée** : déclarée dans le header, jamais définie.
+- **Algorithme brute-force** : la recherche du plus grand carré est en O(n⁴), fonctionnelle pour de petites cartes mais trop lente pour des cartes proches de la limite (1500×1500).
+- **Flags de compilation désactivés** : `-Wall -Wextra -Werror` sont commentés dans le Makefile.
